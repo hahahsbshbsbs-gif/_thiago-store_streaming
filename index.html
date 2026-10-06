@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiago Store - Streaming & Cuentas</title>
+    <!-- Google Fonts & FontAwesome para iconos -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent: #22c55e;
+            --accent-hover: #16a34a;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --netflix-color: #e50914;
+            --max-color: #002be7;
+            --prime-color: #00a8e1;
+            --disney-color: #0072d2;
+            --paramount-color: #0064ff;
+            --vix-color: #ff5722;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding-bottom: 50px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border-bottom: 2px solid #334155;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        header h1 span {
+            color: var(--accent);
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #334155;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #334155;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.2);
+        }
+
+        .card-header {
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        .netflix-header { background: var(--netflix-color); }
+        .max-header { background: var(--max-color); }
+        .prime-header { background: var(--prime-color); }
+        .disney-header { background: var(--disney-color); }
+        .paramount-header { background: var(--paramount-color); }
+        .vix-header { background: var(--vix-color); }
+
+        .card-body {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .features li {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .features li i {
+            color: var(--accent);
+        }
+
+        .price {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .btn-whatsapp {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: background-color 0.2s;
+            text-align: center;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .float-wa {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: #25d366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 100;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .float-wa:hover {
+            transform: scale(1.1);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Thiago <span>Store</span> </h1>
+        <p>Tus plataformas de streaming favoritas al mejor precio. ¡Compra rápida y segura por WhatsApp!</p>
+    </header>
+
+    <div class="container">
+
+        <!-- NETFLIX -->
+        <h2 class="section-title"><span></span> Netflix</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="card-header netflix-header">Perfil Extra</div>
+                <div class="card-body">
+                    <ul class="features">
+                        <li><i class="fa-solid fa-check"></i> 1 Perfil asignado</li>
+                        <li><i class="fa-solid fa-check"></i> Alta estabilidad</li>
+                        <li><i class="fa-solid fa-check"></i> Calidad HD/4K</li>
+                    </ul>
+                    <div class="price">$6.900</div>
+                    <a href="https://wa.me/5493813461532?text=Hola%20Thiago%20Store,%20quiero%20comprar:%0A%0A*Plataforma:*%20Netflix%0A*Plan:*%20Perfil%20Extra%0A*Precio:*%20$6.900%0A%0A¿Me%20indicás%20los%20datos%20para%20hacer%20el%20pago?" class="btn-whatsapp" target="_blank">
+                        <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- HBO MAX -->
+        <h2 class="section-title"><span></span> HBO Max</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="card-header max-header">1 Perfil</div>
+                <div class="card-body">
+                    <ul class="features">
+                        <li><i class="fa-solid fa-check"></i> 1 Perfil individual</li>
+                        <li><i class="fa-solid fa-check"></i> Estrenos de cine y series</li>
+                        <li><i class="fa-solid fa-check"></i> Excelente calidad</li>
+                    </ul>
+                    <div class="price">$2.500</div>
+                    <a href="https://wa.me/5493813461532?text=Hola%20Thiago%20Store,%20quiero%20comprar:%0A%0A*Plataforma:*%20HBO%20Max%0A*Plan:*%201%20Perfil%0A*Precio:*%20$2.500%0A%0A¿Me%20indicás%20los%20datos%20para%20hacer%20el%20pago?" class="btn-whatsapp" target="_blank">
+                        <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header max-header">Cuenta Completa</div>
+                <div class="card-body">
+                    <ul class="features">
+                        <li><i class="fa-solid fa-check"></i> Acceso total a todos los perfiles</li>
+                        <li><i class="fa-solid fa-check"></i> Privacidad garantizada</li>
+                        <li><i class="fa-solid fa-check"></i> Máxima calidad</li>
+                    </ul>
+                    <div class="price">$4.800</div>
+                    <a href="https://wa.me/5493813461532?text=Hola%20Thiago%20Store,%20quiero%20comprar:%0A%0A*Plataforma:*%20HBO%20Max%0A*Plan:*%20Cuenta%20Completa%0A*Precio:*%20$4.800%0A%0A¿Me%20indicás%20los%20datos%20para%20hacer%20el%20pago?" class="btn-whatsapp" target="_blank">
+                        <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRIME VIDEO -->
+        <h2 class="section-title"><span></span> Amazon Prime Video</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="card-header prime-header">1 Pantalla (1 mes)</div>
+                <div class="card-body">
+                    <ul class="features">
+                        <li><i class="fa-solid fa-check"></i> 1 Dispositivo / Pantalla</li>
+                        <li><i class="fa-solid fa-check"></i> Duración 1 mes</li>
+                        <li><i class="fa-solid fa-check"></i> Amazon Originals</li>
+                    </ul>
+                    <div class="price">$1.900</div>
+                    <a href="https://wa.me/5493813461532?text=Hola%20Thiago%20Store,%20quiero%20comprar:%0A%0A*Plataforma:*%20Prime%20Video%0A*Plan:*%201%20Pantalla%20(1%20mes)%0A*Precio:*%20$1.900%0A%0A¿Me%20indicás%20los%20datos%20para%20hacer%20el%20pago?" class="btn-whatsapp" target="_blank">
+                        <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header prime-header">2 Pantallas (1 mes)</div>
+                <div class="card-body">
+                    <ul class="features">
+                        <li><i class="fa-solid fa-check"></i> 2 Pantallas simultáneas</li>
+                        <li><i class="fa-solid fa-check"></i> Duración 1 mes</li>
+                        <li><i class="fa-solid fa-check"></i> Ideal para compartir</li>
+                    </ul>
+                    <div class="price">$2.990</div>
+                    <a href="https://wa.me/5493813461532?text=Hola%20Thiago%20Store,%20quiero%20comprar:%0A%0A*Plataforma:*%20Prime%20Video%0A*Plan:*%202%20Pantallas%20(1%20mes)%0A*Precio:*%20$2.990%0A%0A¿Me%20indicás%20los%20datos%20para%20hacer%20el%20pago?" class="btn-whatsapp" target="_blank">
+                        <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header prime-header">Cuenta Completa</div>
+                <div class="card-body">
+                    <ul class="features">
+                        <li><i class="fa-solid fa-check"></i> Cuenta completa para ti</li>
+                        <li><i class="fa-solid fa-check"></i> Control total</li>
+                        <li><i class="fa-solid fa-check"></i> Catálogo completo</li>
+                    </ul>
+                    <div class="price">$3.990</div>
+                    <a href="https://wa.me/5493813461532?text=Hola%20Thiago%20Store,%20quiero%20comprar:%0A%0A*Plataforma:*%20Prime%20Video%0A*Plan:*%20Cuenta%20Completa%0A*Precio:*%20$3.990%0A%0A¿Me%20indicás%20los%20datos%20para%20hacer%20el%20pago?" class="btn-whatsapp" target="_blank">
+                        <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- DISNEY & HULU -->
+        <h2 class="section-title"><span></span> Disney+ & Hulu</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="card-header disney-header">Disney Premium 1 Dispositivo</div>
+                <div class="card-body">
+                    <ul class="features">
+                        <li><i class="fa-solid fa-check"></i> 1 Dispositivo asignado</li>
+                        <li><i class="fa-solid fa-check"></i> Contenido Premium y deportes</li>
+                        <li><i class="fa-solid fa-check"></i> Alta definición</li>
+                    </ul>
+                    <div class="price">$3.800</div>
+                    <a href="https://wa.me/5493813461532?text=Hola%20Thiago%20Store,%20quiero%20comprar:%0A%0A*Plataforma:*%20Disney+%0A*Plan:*%20Disney%20Premium%201%20Dispositivo%0A*Precio:*%20$3.800%0A%0A¿Me%20indicás%20los%20datos%20para%20hacer%20el%20pago?" class="btn-whatsapp" target="_blank">
+                        <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header" style="background: #16a34a;"><span></span> Disney+ Hulu</div>
+                <div class="card-body">
+                    <ul class="features">
+                        <li><i class="fa-solid fa-check"></i> Acceso especial</li>
+                        <li><i class="fa-solid fa-check"></i> Catálogo combinado</li>
+                        <li><i class="fa-solid fa-check"></i> Entretenimiento asegurado</li>
+                    </ul>
+                    <div class="price">$1.990</div>
+                    <a href="https://wa.me/5493813461532?text=Hola%20Thiago%20Store,%20quiero%20comprar:%0A%0A*Plataforma:*%20Disney+%0A*Plan:*%20Disney+%20Hulu%0A*Precio:*%20$1.990%0A%0A¿Me%20indicás%20los%20datos%20para%20hacer%20el%20pago?" class="btn-whatsapp" target="_blank">
+                        <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- PARAMOUNT+ -->
+        <h2 class="section-title"><span></span> Paramount+</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="card-header paramount-header">1 Pantalla</div>
+                <div class="card-body">
+                    <ul class="features">
+                        <li><i class="fa-solid fa-check"></i> 1 Pantalla individual</li>
+                        <li><i class="fa-solid fa-check"></i> Series y películas exclusivas</li>
+                        <li><i class="fa-solid fa-check"></i> Estabilidad garantizada</li>
+                    </ul>
+                    <div class="price">$2.900</div>
+                    <a href="https://wa.me/5493813461532?text=Hola%20Thiago%20Store,%20quiero%20comprar:%0A%0A*Plataforma:*%20Paramount+%0A*Plan:*%201%20Pantalla%0A*Precio:*%20$2.900%0A%0A¿Me%20indicás%20los%20datos%20para%20hacer%20el%20pago?" class="btn-whatsapp" target="_blank">
+                        <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header paramount-header">Cuenta Completa</div>
+                <div class="card-body">
+                    <ul class="features">
+                        <li><i class="fa-solid fa-check"></i> Cuenta completa</li>
+                        <li><i class="fa-solid fa-check"></i> Acceso sin límites</li>
+                        <li><i class="fa-solid fa-check"></i> Todo el contenido disponible</li>
+                    </ul>
+                    <div class="price">$4.900</div>
+                    <a href="https://wa.me/5493813461532?text=Hola%20Thiago%20Store,%20quiero%20comprar:%0A%0A*Plataforma:*%20Paramount+%0A*Plan:*%20Cuenta%20Completa%0A*Precio:*%20$4.900%0A%0A¿Me%20indicás%20los%20datos%20para%20hacer%20el%20pago?" class="btn-whatsapp" target="_blank">
+                        <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIX PREMIUM -->
+        <h2 class="section-title"><span></span> Vix Premium</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="card-header vix-header">1 Perfil</div>
+                <div class="card-body">
+                    <ul class="features">
+                        <li><i class="fa-solid fa-check"></i> 1 Perfil individual</li>
+                        <li><i class="fa-solid fa-check"></i> Novelas, series y fútbol</li>
+                        <li><i class="fa-solid fa-check"></i> Sin publicidad</li>
+                    </ul>
+                    <div class="price">$1.900</div>
+                    <a href="https://wa.me/5493813461532?text=Hola%20Thiago%20Store,%20quiero%20comprar:%0A%0A*Plataforma:*%20Vix%20Premium%0A*Plan:*%201%20Perfil%0A*Precio:*%20$1.900%0A%0A¿Me%20indicás%20los%20datos%20para%20hacer%20el%20pago?" class="btn-whatsapp" target="_blank">
+                        <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header vix-header">Cuenta Completa</div>
+                <div class="card-body">
+                    <ul class="features">
+                        <li><i class="fa-solid fa-check"></i> Cuenta completa</li>
+                        <li><i class="fa-solid fa-check"></i> Disfruta con total libertad</li>
+                        <li><i class="fa-solid fa-check"></i> Contenido exclusivo</li>
+                    </ul>
+                    <div class="price">$3.500</div>
+                    <a href="https://wa.me/5493813461532?text=Hola%20Thiago%20Store,%20quiero%20comprar:%0A%0A*Plataforma:*%20Vix%20Premium%0A*Plan:*%20Cuenta%20Completa%0A*Precio:*%20$3.500%0A%0A¿Me%20indicás%20los%20datos%20para%20hacer%20el%20pago?" class="btn-whatsapp" target="_blank">
+                        <i class="fa-brands fa-whatsapp"></i> Comprar por WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Botón flotante de WhatsApp -->
+    <a href="https://wa.me/5493813461532?text=Hola%20Thiago%20Store,%20quiero%20consultar%20por%20las%20plataformas%20de%20streaming." class="float-wa" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <footer>
+        <p>&copy; 2026 Thiago Store. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>
